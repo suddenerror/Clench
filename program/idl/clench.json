@@ -1,0 +1,1001 @@
+{
+  "address": "YS3nPRaMBL4unfow4iqs8rwrXnLLWx2MYucp9ba582m",
+  "metadata": {
+    "name": "clench",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "initializeConfig",
+      "discriminator": [
+        208,
+        127,
+        21,
+        1,
+        194,
+        190,
+        196,
+        70
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "InitializeConfigArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createLaunch",
+      "discriminator": [
+        239,
+        223,
+        255,
+        134,
+        39,
+        121,
+        127,
+        62
+      ],
+      "accounts": [
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "tokenProgram"
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "CreateLaunchArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "harvestTax",
+      "discriminator": [
+        65,
+        8,
+        228,
+        8,
+        123,
+        44,
+        26,
+        74
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "signer": true
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "writable": true
+        },
+        {
+          "name": "taxVault",
+          "writable": true
+        },
+        {
+          "name": "treasuryTokenAccount",
+          "writable": true
+        },
+        {
+          "name": "keeperTokenAccount",
+          "writable": true
+        },
+        {
+          "name": "creatorTokenAccount",
+          "writable": true
+        },
+        {
+          "name": "tokenProgram"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "closeEpoch",
+      "discriminator": [
+        13,
+        87,
+        7,
+        133,
+        109,
+        14,
+        83,
+        25
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "launch",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "publishRoot",
+      "discriminator": [
+        50,
+        189,
+        35,
+        212,
+        180,
+        100,
+        87,
+        25
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "distribution",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "root",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "total",
+          "type": "u64"
+        },
+        {
+          "name": "leafCount",
+          "type": "u32"
+        },
+        {
+          "name": "rewardMint",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "distribute",
+      "discriminator": [
+        191,
+        44,
+        223,
+        207,
+        164,
+        236,
+        126,
+        61
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "distribution",
+          "writable": true
+        },
+        {
+          "name": "pending",
+          "writable": true
+        },
+        {
+          "name": "ownerAccount",
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "rewardMintAccount",
+          "optional": true
+        },
+        {
+          "name": "ownerTokenAccount",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "tokenProgram",
+          "optional": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "leafIndex",
+          "type": "u32"
+        },
+        {
+          "name": "owner",
+          "type": "pubkey"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "streak",
+          "type": "u32"
+        },
+        {
+          "name": "proof",
+          "type": {
+            "vec": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "finalizeDistribution",
+      "discriminator": [
+        12,
+        246,
+        59,
+        197,
+        66,
+        128,
+        169,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "keeperFund",
+          "writable": true
+        },
+        {
+          "name": "launch"
+        },
+        {
+          "name": "distribution",
+          "writable": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Config",
+      "discriminator": [
+        155,
+        12,
+        170,
+        224,
+        30,
+        250,
+        204,
+        130
+      ]
+    },
+    {
+      "name": "Launch",
+      "discriminator": [
+        144,
+        51,
+        51,
+        163,
+        206,
+        85,
+        213,
+        38
+      ]
+    },
+    {
+      "name": "Distribution",
+      "discriminator": [
+        176,
+        85,
+        17,
+        11,
+        13,
+        194,
+        18,
+        1
+      ]
+    },
+    {
+      "name": "Pending",
+      "discriminator": [
+        36,
+        180,
+        147,
+        170,
+        72,
+        175,
+        173,
+        126
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidTaxBps",
+      "msg": "tax_bps must be between 100 and 300 (1%-3%)"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidFeeSplit",
+      "msg": "fee split shares must sum to 10000 bps"
+    },
+    {
+      "code": 6002,
+      "name": "EpochNotFinished",
+      "msg": "epoch has not finished yet"
+    },
+    {
+      "code": 6003,
+      "name": "OverPromise",
+      "msg": "distribution would promise more than the pool holds (OverPromise)"
+    },
+    {
+      "code": 6004,
+      "name": "Underfunded",
+      "msg": "vault balance insufficient to cover undistributed + new total (Underfunded)"
+    },
+    {
+      "code": 6005,
+      "name": "OutOfOrder",
+      "msg": "leaf is out of order relative to distribution cursor"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidMerkleProof",
+      "msg": "merkle proof failed to verify against distribution root"
+    },
+    {
+      "code": 6007,
+      "name": "DistributionNotFinished",
+      "msg": "distribution is not finished yet"
+    },
+    {
+      "code": 6008,
+      "name": "DistributionMismatch",
+      "msg": "sent + deferred does not equal total"
+    },
+    {
+      "code": 6009,
+      "name": "WrongLaunchMode",
+      "msg": "launch mode does not support this instruction"
+    },
+    {
+      "code": 6010,
+      "name": "FeeAuthorityNotRevoked",
+      "msg": "transfer fee authority must be revoked in the same instruction"
+    }
+  ],
+  "types": [
+    {
+      "name": "FeeSplit",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "holdersBps",
+            "type": "u16"
+          },
+          {
+            "name": "treasuryBps",
+            "type": "u16"
+          },
+          {
+            "name": "keeperBps",
+            "type": "u16"
+          },
+          {
+            "name": "creatorBps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LaunchMode",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Standard"
+          },
+          {
+            "name": "Reward"
+          },
+          {
+            "name": "Competitive"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeConfigArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "treasury",
+            "type": "pubkey"
+          },
+          {
+            "name": "epochDuration",
+            "type": "i64"
+          },
+          {
+            "name": "roundDuration",
+            "type": "i64"
+          },
+          {
+            "name": "roundsInRace",
+            "type": "u8"
+          },
+          {
+            "name": "maxExtraRounds",
+            "type": "u8"
+          },
+          {
+            "name": "bankBps",
+            "type": "u16"
+          },
+          {
+            "name": "roundJitter",
+            "type": "i64"
+          },
+          {
+            "name": "walletVolumeCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "churnWeightBps",
+            "type": "u16"
+          },
+          {
+            "name": "wVolumeBps",
+            "type": "u16"
+          },
+          {
+            "name": "wHoldersBps",
+            "type": "u16"
+          },
+          {
+            "name": "wMcapBps",
+            "type": "u16"
+          },
+          {
+            "name": "volumeFloor",
+            "type": "u64"
+          },
+          {
+            "name": "ogVolumeFloor",
+            "type": "u64"
+          },
+          {
+            "name": "ogHoldersFloor",
+            "type": "u32"
+          },
+          {
+            "name": "ogMcapFloor",
+            "type": "u64"
+          },
+          {
+            "name": "multiplierStepBps",
+            "type": "u16"
+          },
+          {
+            "name": "multiplierCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "ogMultiplierStepBps",
+            "type": "u16"
+          },
+          {
+            "name": "ogMultiplierCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "prorataBps",
+            "type": "u16"
+          },
+          {
+            "name": "dustToleranceBps",
+            "type": "u16"
+          },
+          {
+            "name": "minPayout",
+            "type": "u64"
+          },
+          {
+            "name": "challengeWindow",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CreateLaunchArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "ticker",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "taxBps",
+            "type": "u16"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "mode",
+            "type": {
+              "defined": {
+                "name": "LaunchMode"
+              }
+            }
+          },
+          {
+            "name": "competitive",
+            "type": "bool"
+          },
+          {
+            "name": "rewardAssets",
+            "type": {
+              "array": [
+                "pubkey",
+                5
+              ]
+            }
+          },
+          {
+            "name": "rewardWeights",
+            "type": {
+              "array": [
+                "u16",
+                5
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Config",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "treasury",
+            "type": "pubkey"
+          },
+          {
+            "name": "feeSplit",
+            "type": {
+              "defined": {
+                "name": "FeeSplit"
+              }
+            }
+          },
+          {
+            "name": "epochDuration",
+            "type": "i64"
+          },
+          {
+            "name": "roundDuration",
+            "type": "i64"
+          },
+          {
+            "name": "roundsInRace",
+            "type": "u8"
+          },
+          {
+            "name": "maxExtraRounds",
+            "type": "u8"
+          },
+          {
+            "name": "bankBps",
+            "type": "u16"
+          },
+          {
+            "name": "roundJitter",
+            "type": "i64"
+          },
+          {
+            "name": "walletVolumeCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "churnWeightBps",
+            "type": "u16"
+          },
+          {
+            "name": "wVolumeBps",
+            "type": "u16"
+          },
+          {
+            "name": "wHoldersBps",
+            "type": "u16"
+          },
+          {
+            "name": "wMcapBps",
+            "type": "u16"
+          },
+          {
+            "name": "volumeFloor",
+            "type": "u64"
+          },
+          {
+            "name": "ogVolumeFloor",
+            "type": "u64"
+          },
+          {
+            "name": "ogHoldersFloor",
+            "type": "u32"
+          },
+          {
+            "name": "ogMcapFloor",
+            "type": "u64"
+          },
+          {
+            "name": "multiplierStepBps",
+            "type": "u16"
+          },
+          {
+            "name": "multiplierCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "ogMultiplierStepBps",
+            "type": "u16"
+          },
+          {
+            "name": "ogMultiplierCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "prorataBps",
+            "type": "u16"
+          },
+          {
+            "name": "dustToleranceBps",
+            "type": "u16"
+          },
+          {
+            "name": "minPayout",
+            "type": "u64"
+          },
+          {
+            "name": "challengeWindow",
+            "type": "i64"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Launch",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "name",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "ticker",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "mode",
+            "type": {
+              "defined": {
+                "name": "LaunchMode"
+              }
+            }
+          },
+          {
+            "name": "taxBps",
+            "type": "u16"
+          },
+          {
+            "name": "rewardAssets",
+            "type": {
+              "array": [
+                "pubkey",
+                5
+              ]
+            }
+          },
+          {
+            "name": "rewardWeights",
+            "type": {
+              "array": [
+                "u16",
+                5
+              ]
+            }
+          },
+          {
+            "name": "feeSplit",
+            "type": {
+              "defined": {
+                "name": "FeeSplit"
+              }
+            }
+          },
+          {
+            "name": "excluded",
+            "type": {
+              "array": [
+                "pubkey",
+                8
+              ]
+            }
+          },
+          {
+            "name": "race",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "competitive",
+            "type": "bool"
+          },
+          {
+            "name": "isOg",
+            "type": "bool"
+          },
+          {
+            "name": "ogBarred",
+            "type": "bool"
+          },
+          {
+            "name": "bornAt",
+            "type": "i64"
+          },
+          {
+            "name": "epochStartedAt",
+            "type": "i64"
+          },
+          {
+            "name": "taxThisRound",
+            "type": "u64"
+          },
+          {
+            "name": "taxThisEpoch",
+            "type": "u64"
+          },
+          {
+            "name": "epochPotSnapshot",
+            "type": "u64"
+          },
+          {
+            "name": "epochIndex",
+            "type": "u32"
+          },
+          {
+            "name": "totalOwed",
+            "type": "u64"
+          },
+          {
+            "name": "taxVaultBump",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Distribution",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "source",
+            "type": "pubkey"
+          },
+          {
+            "name": "root",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "total",
+            "type": "u64"
+          },
+          {
+            "name": "sent",
+            "type": "u64"
+          },
+          {
+            "name": "deferred",
+            "type": "u64"
+          },
+          {
+            "name": "cursor",
+            "type": "u32"
+          },
+          {
+            "name": "leafCount",
+            "type": "u32"
+          },
+          {
+            "name": "finished",
+            "type": "bool"
+          },
+          {
+            "name": "rewardMint",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pending",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "rewardMint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

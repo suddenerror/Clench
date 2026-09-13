@@ -13,5 +13,6 @@ program/test-ledger/
 program/target/
 *.so
 
-# Rust
-Cargo.lock
+# Rust — Cargo.lock коммитится для program/ (это бинарник/программа, а не
+# библиотека): версии зависимостей закреплены намеренно и с трудом (см.
+# комментарии в programs/clench/Cargo.toml), пере-резолвинг их сломает сборку.
