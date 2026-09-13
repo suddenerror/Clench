@@ -24,6 +24,53 @@ export function findConfigPda(programId: PublicKey): [PublicKey, number] {
   return PublicKey.findProgramAddressSync([CONFIG_SEED], programId);
 }
 
+export const RACE_SEED = Buffer.from("race");
+export const ROUND_SEED = Buffer.from("round");
+export const WINS_SEED = Buffer.from("wins");
+export const LOCK_SEED = Buffer.from("lock");
+
+export function findRacePda(programId: PublicKey, matchHash: Buffer): [PublicKey, number] {
+  return PublicKey.findProgramAddressSync([RACE_SEED, matchHash], programId);
+}
+
+export function findRoundResultPda(programId: PublicKey, race: PublicKey, round: number): [PublicKey, number] {
+  return PublicKey.findProgramAddressSync([ROUND_SEED, race.toBuffer(), Buffer.from([round])], programId);
+}
+
+export function findRoundsWonPda(programId: PublicKey, race: PublicKey, launch: PublicKey): [PublicKey, number] {
+  return PublicKey.findProgramAddressSync([WINS_SEED, race.toBuffer(), launch.toBuffer()], programId);
+}
+
+export function findTickerLockPda(programId: PublicKey, pairHash: Buffer): [PublicKey, number] {
+  return PublicKey.findProgramAddressSync([LOCK_SEED, pairHash], programId);
+}
+
+// Дословно по hashing.rs: trim, срезать $, uppercase, только ASCII-алфанумерика.
+export function norm(s: string): string {
+  const trimmed = s.trim();
+  const stripped = trimmed.startsWith("$") ? trimmed.slice(1) : trimmed;
+  return stripped.toUpperCase().replace(/[^A-Z0-9]/g, "");
+}
+
+export function tickerHash(ticker: string): Buffer {
+  return Buffer.from(keccak_256.arrayBuffer(Buffer.from(norm(ticker), "utf-8")));
+}
+
+export function nameHash(name: string): Buffer {
+  return Buffer.from(keccak_256.arrayBuffer(Buffer.from(norm(name), "utf-8")));
+}
+
+export function pairHash(name: string, ticker: string): Buffer {
+  const data = Buffer.concat([Buffer.from(norm(name), "utf-8"), Buffer.from([0]), Buffer.from(norm(ticker), "utf-8")]);
+  return Buffer.from(keccak_256.arrayBuffer(data));
+}
+
+export function strToFixedBuffer(s: string, len: number): Buffer {
+  const buf = Buffer.alloc(len, 0);
+  Buffer.from(s, "utf-8").copy(buf);
+  return buf;
+}
+
 // Дословно по merkle.rs: keccak256(be_bytes(leaf_index) || owner || be_bytes(amount) || be_bytes(streak)).
 export function hashLeaf(leafIndex: number, owner: PublicKey, amount: bigint, streak: number): Buffer {
   const buf = Buffer.alloc(4 + 32 + 8 + 4);

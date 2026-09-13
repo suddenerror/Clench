@@ -1,6 +1,7 @@
 use anchor_lang::prelude::*;
 
 pub mod errors;
+pub mod hashing;
 pub mod instructions;
 pub mod merkle;
 pub mod payout;
@@ -53,6 +54,30 @@ pub mod clench {
 
     pub fn finalize_distribution(ctx: Context<FinalizeDistribution>) -> Result<()> {
         finalize_distribution_handler(ctx)
+    }
+
+    pub fn open_race(ctx: Context<OpenRace>, match_hash: [u8; 32]) -> Result<()> {
+        open_race_handler(ctx, match_hash)
+    }
+
+    pub fn join_race(ctx: Context<JoinRace>) -> Result<()> {
+        join_race_handler(ctx)
+    }
+
+    pub fn update_leader(ctx: Context<UpdateLeader>, composite_score: u64) -> Result<()> {
+        update_leader_handler(ctx, composite_score)
+    }
+
+    pub fn close_round(ctx: Context<CloseRound>) -> Result<()> {
+        close_round_handler(ctx)
+    }
+
+    pub fn settle_race(ctx: Context<SettleRace>, floors_met: bool) -> Result<()> {
+        settle_race_handler(ctx, floors_met)
+    }
+
+    pub fn claim_og(ctx: Context<ClaimOg>, floors_met: bool) -> Result<()> {
+        claim_og_handler(ctx, floors_met)
     }
 }
 

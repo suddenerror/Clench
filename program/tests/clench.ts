@@ -21,6 +21,8 @@ import {
   findLaunchPda,
   findDistPda,
   findPendingPda,
+  findTickerLockPda,
+  pairHash,
   buildMerkleTree,
 } from "./utils";
 
@@ -51,11 +53,14 @@ describe("clench — Фаза 2 базовый цикл", () => {
       .initializeConfig({
         treasury: treasury.publicKey,
         epochDuration: new anchor.BN(EPOCH_DURATION_SECONDS),
-        roundDuration: new anchor.BN(21600),
+        // Маленькие значения — единый глобальный Config переиспользуется
+        // всеми тестовыми файлами этого прогона (PDA-синглтон); Фаза 3
+        // (race.ts) полагается на эти же тайминги для быстрых раундов.
+        roundDuration: new anchor.BN(5),
         roundsInRace: 4,
         maxExtraRounds: 8,
         bankBps: 2000,
-        roundJitter: new anchor.BN(900),
+        roundJitter: new anchor.BN(2),
         walletVolumeCapBps: 500,
         churnWeightBps: 1000,
         wVolumeBps: 5000,
@@ -83,6 +88,7 @@ describe("clench — Фаза 2 базовый цикл", () => {
   async function createLaunch(mode: "standard" | "reward") {
     const mint = Keypair.generate();
     const [launchPda] = findLaunchPda(program.programId, mint.publicKey);
+    const [tickerLockPda] = findTickerLockPda(program.programId, pairHash("", ""));
 
     await program.methods
       .createLaunch({
@@ -99,6 +105,7 @@ describe("clench — Фаза 2 базовый цикл", () => {
         creator: payer.publicKey,
         mint: mint.publicKey,
         launch: launchPda,
+        tickerLockCheck: tickerLockPda,
         tokenProgram: TOKEN_2022_PROGRAM_ID,
         systemProgram: SystemProgram.programId,
       })

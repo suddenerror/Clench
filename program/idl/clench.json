@@ -71,6 +71,9 @@
           "writable": true
         },
         {
+          "name": "tickerLockCheck"
+        },
+        {
           "name": "tokenProgram"
         },
         {
@@ -334,6 +337,241 @@
         }
       ],
       "args": []
+    },
+    {
+      "name": "openRace",
+      "discriminator": [
+        226,
+        139,
+        191,
+        247,
+        233,
+        199,
+        230,
+        3
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "launchA",
+          "writable": true
+        },
+        {
+          "name": "launchB",
+          "writable": true
+        },
+        {
+          "name": "race",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "matchHash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "joinRace",
+      "discriminator": [
+        207,
+        91,
+        222,
+        84,
+        249,
+        246,
+        229,
+        54
+      ],
+      "accounts": [
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "race",
+          "writable": true
+        },
+        {
+          "name": "tickerLockCheck"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "updateLeader",
+      "discriminator": [
+        173,
+        21,
+        190,
+        31,
+        208,
+        24,
+        154,
+        200
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "signer": true
+        },
+        {
+          "name": "launch"
+        },
+        {
+          "name": "race",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "compositeScore",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "closeRound",
+      "discriminator": [
+        149,
+        14,
+        81,
+        88,
+        230,
+        226,
+        234,
+        37
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "race",
+          "writable": true
+        },
+        {
+          "name": "roundResult",
+          "writable": true
+        },
+        {
+          "name": "roundsWon",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "settleRace",
+      "discriminator": [
+        172,
+        32,
+        72,
+        212,
+        155,
+        33,
+        161,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "race",
+          "writable": true
+        },
+        {
+          "name": "launchLeader",
+          "writable": true
+        },
+        {
+          "name": "launchRunnerUp",
+          "writable": true
+        },
+        {
+          "name": "tickerLock",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "floorsMet",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "claimOg",
+      "discriminator": [
+        122,
+        39,
+        198,
+        167,
+        126,
+        241,
+        1,
+        143
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "tickerLock",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "floorsMet",
+          "type": "bool"
+        }
+      ]
     }
   ],
   "accounts": [
@@ -387,6 +625,58 @@
         175,
         173,
         126
+      ]
+    },
+    {
+      "name": "Race",
+      "discriminator": [
+        114,
+        93,
+        186,
+        119,
+        99,
+        123,
+        162,
+        192
+      ]
+    },
+    {
+      "name": "RoundResult",
+      "discriminator": [
+        216,
+        11,
+        21,
+        196,
+        213,
+        240,
+        117,
+        235
+      ]
+    },
+    {
+      "name": "RoundsWon",
+      "discriminator": [
+        215,
+        9,
+        243,
+        122,
+        218,
+        4,
+        144,
+        232
+      ]
+    },
+    {
+      "name": "TickerLock",
+      "discriminator": [
+        239,
+        106,
+        232,
+        87,
+        93,
+        121,
+        8,
+        225
       ]
     }
   ],
@@ -445,6 +735,86 @@
       "code": 6010,
       "name": "FeeAuthorityNotRevoked",
       "msg": "transfer fee authority must be revoked in the same instruction"
+    },
+    {
+      "code": 6011,
+      "name": "NoMatch",
+      "msg": "ticker/name hash does not match between the two launches"
+    },
+    {
+      "code": 6012,
+      "name": "AlreadyOg",
+      "msg": "launch already has the OG plaque"
+    },
+    {
+      "code": 6013,
+      "name": "OgBarred",
+      "msg": "launch lost a tournament and can never claim OG for this pair"
+    },
+    {
+      "code": 6014,
+      "name": "AlreadyInRace",
+      "msg": "launch is already attached to a race"
+    },
+    {
+      "code": 6015,
+      "name": "VolumeFloorNotCrossed",
+      "msg": "launch has not crossed VOLUME_FLOOR yet"
+    },
+    {
+      "code": 6016,
+      "name": "NotInThisRace",
+      "msg": "launch is not attached to this race"
+    },
+    {
+      "code": 6017,
+      "name": "JoinWindowClosed",
+      "msg": "join window (first two rounds) has closed"
+    },
+    {
+      "code": 6018,
+      "name": "TickerLocked",
+      "msg": "ticker/name pair is already locked to an OG launch"
+    },
+    {
+      "code": 6019,
+      "name": "ScoreImplausible",
+      "msg": "composite score exceeds the plausible ceiling for this round"
+    },
+    {
+      "code": 6020,
+      "name": "RoundNotFinished",
+      "msg": "round has not finished yet"
+    },
+    {
+      "code": 6021,
+      "name": "RaceNotYetSettleable",
+      "msg": "race has already reached its round target \u2014 call settle_race"
+    },
+    {
+      "code": 6022,
+      "name": "RaceNotSettleable",
+      "msg": "race is not in a state that can be settled"
+    },
+    {
+      "code": 6023,
+      "name": "RaceNotSettled",
+      "msg": "race has not been settled yet"
+    },
+    {
+      "code": 6024,
+      "name": "NotALoser",
+      "msg": "this launch is the race winner, not a loser"
+    },
+    {
+      "code": 6025,
+      "name": "OgFloorNotCrossed",
+      "msg": "launch has not crossed the OG floors (volume/holders/mcap)"
+    },
+    {
+      "code": 6026,
+      "name": "RaceStillRunning",
+      "msg": "launch already has an active, unresolved race"
     }
   ],
   "types": [
@@ -910,6 +1280,10 @@
             "type": "u64"
           },
           {
+            "name": "lifetimeTaxCollected",
+            "type": "u64"
+          },
+          {
             "name": "taxVaultBump",
             "type": "u8"
           },
@@ -989,6 +1363,214 @@
           {
             "name": "amount",
             "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MatchKind",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Ticker"
+          },
+          {
+            "name": "Name"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RaceStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Running"
+          },
+          {
+            "name": "Extended"
+          },
+          {
+            "name": "Settled"
+          },
+          {
+            "name": "Void"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TickerLock",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "keyHash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "ogLaunch",
+            "type": "pubkey"
+          },
+          {
+            "name": "wonAt",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Race",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "matchHash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "matchKind",
+            "type": {
+              "defined": {
+                "name": "MatchKind"
+              }
+            }
+          },
+          {
+            "name": "claimantCount",
+            "type": "u32"
+          },
+          {
+            "name": "startedAt",
+            "type": "i64"
+          },
+          {
+            "name": "currentRound",
+            "type": "u8"
+          },
+          {
+            "name": "roundStartedAt",
+            "type": "i64"
+          },
+          {
+            "name": "roundEndsAt",
+            "type": "i64"
+          },
+          {
+            "name": "leader",
+            "type": "pubkey"
+          },
+          {
+            "name": "leaderScore",
+            "type": "u64"
+          },
+          {
+            "name": "overallLeader",
+            "type": "pubkey"
+          },
+          {
+            "name": "overallRoundsWon",
+            "type": "u8"
+          },
+          {
+            "name": "runnerUp",
+            "type": "pubkey"
+          },
+          {
+            "name": "runnerUpRoundsWon",
+            "type": "u8"
+          },
+          {
+            "name": "extraRoundsUsed",
+            "type": "u8"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "RaceStatus"
+              }
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundResult",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "race",
+            "type": "pubkey"
+          },
+          {
+            "name": "round",
+            "type": "u8"
+          },
+          {
+            "name": "winner",
+            "type": "pubkey"
+          },
+          {
+            "name": "winnerScore",
+            "type": "u64"
+          },
+          {
+            "name": "bankEntries",
+            "type": "u8"
+          },
+          {
+            "name": "closedAt",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundsWon",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "race",
+            "type": "pubkey"
+          },
+          {
+            "name": "launch",
+            "type": "pubkey"
+          },
+          {
+            "name": "wins",
+            "type": "u8"
           },
           {
             "name": "bump",

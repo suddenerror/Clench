@@ -1,15 +1,27 @@
+pub mod claim_og;
 pub mod close_epoch;
+pub mod close_round;
 pub mod create_launch;
 pub mod distribute;
 pub mod finalize_distribution;
 pub mod harvest_tax;
 pub mod initialize_config;
+pub mod join_race;
+pub mod open_race;
 pub mod publish_root;
+pub mod settle_race;
+pub mod update_leader;
 
+pub use claim_og::*;
 pub use close_epoch::*;
+pub use close_round::*;
 pub use create_launch::*;
 pub use distribute::*;
 pub use finalize_distribution::*;
 pub use harvest_tax::*;
 pub use initialize_config::*;
+pub use join_race::*;
+pub use open_race::*;
 pub use publish_root::*;
+pub use settle_race::*;
+pub use update_leader::*;

@@ -7,8 +7,10 @@ use spl_token_2022::instruction as token_ix;
 use spl_token_2022::extension::transfer_fee::instruction as fee_ix;
 
 use crate::errors::ClenchError;
+use crate::hashing;
 use crate::state::config::FeeSplit;
 use crate::state::launch::{Launch, LaunchMode};
+use crate::state::ticker_lock::TickerLock;
 
 #[derive(AnchorSerialize, AnchorDeserialize, Clone)]
 pub struct CreateLaunchArgs {
@@ -41,12 +43,26 @@ pub struct CreateLaunch<'info> {
     )]
     pub launch: Account<'info, Launch>,
 
+    /// CHECK: PDA под pair_hash(name, ticker) из args; существование = связка
+    /// закрыта для турниров (§5). Адрес проверяется в хендлере.
+    pub ticker_lock_check: UncheckedAccount<'info>,
+
     pub token_program: Program<'info, Token2022>,
     pub system_program: Program<'info, System>,
 }
 
 pub fn create_launch_handler(ctx: Context<CreateLaunch>, args: CreateLaunchArgs) -> Result<()> {
     require!(args.tax_bps >= 100 && args.tax_bps <= 300, ClenchError::InvalidTaxBps);
+
+    // §5: существующий TickerLock не блокирует создание монеты — он
+    // принудительно снимает `competitive`. Отказ только если деплоер явно
+    // запросил турнир (`args.competitive == true`) по занятой связке.
+    let pair_hash = hashing::pair_hash(&args.name, &args.ticker);
+    let (expected_lock_pda, _) = Pubkey::find_program_address(&[TickerLock::SEED, pair_hash.as_ref()], ctx.program_id);
+    require_keys_eq!(ctx.accounts.ticker_lock_check.key(), expected_lock_pda, ClenchError::NoMatch);
+    let ticker_locked = !ctx.accounts.ticker_lock_check.data_is_empty();
+    require!(!(ticker_locked && args.competitive), ClenchError::TickerLocked);
+    let effective_competitive = args.competitive && !ticker_locked;
 
     let fee_split = match args.mode {
         LaunchMode::Standard => FeeSplit::standard_default(),
@@ -130,7 +146,7 @@ pub fn create_launch_handler(ctx: Context<CreateLaunch>, args: CreateLaunchArgs)
     launch.fee_split = fee_split;
     launch.excluded = [Pubkey::default(); 8];
     launch.race = None;
-    launch.competitive = args.competitive;
+    launch.competitive = effective_competitive;
     launch.is_og = false;
     launch.og_barred = false;
     let now = Clock::get()?.unix_timestamp;
@@ -141,6 +157,7 @@ pub fn create_launch_handler(ctx: Context<CreateLaunch>, args: CreateLaunchArgs)
     launch.epoch_pot_snapshot = 0;
     launch.epoch_index = 0;
     launch.total_owed = 0;
+    launch.lifetime_tax_collected = 0;
     launch.tax_vault_bump = 0;
     launch.bump = bump;
 

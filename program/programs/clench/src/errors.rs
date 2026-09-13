@@ -24,4 +24,38 @@ pub enum ClenchError {
     WrongLaunchMode,
     #[msg("transfer fee authority must be revoked in the same instruction")]
     FeeAuthorityNotRevoked,
+
+    // Фаза 3 — турнир и OG.
+    #[msg("ticker/name hash does not match between the two launches")]
+    NoMatch,
+    #[msg("launch already has the OG plaque")]
+    AlreadyOg,
+    #[msg("launch lost a tournament and can never claim OG for this pair")]
+    OgBarred,
+    #[msg("launch is already attached to a race")]
+    AlreadyInRace,
+    #[msg("launch has not crossed VOLUME_FLOOR yet")]
+    VolumeFloorNotCrossed,
+    #[msg("launch is not attached to this race")]
+    NotInThisRace,
+    #[msg("join window (first two rounds) has closed")]
+    JoinWindowClosed,
+    #[msg("ticker/name pair is already locked to an OG launch")]
+    TickerLocked,
+    #[msg("composite score exceeds the plausible ceiling for this round")]
+    ScoreImplausible,
+    #[msg("round has not finished yet")]
+    RoundNotFinished,
+    #[msg("race has already reached its round target — call settle_race")]
+    RaceNotYetSettleable,
+    #[msg("race is not in a state that can be settled")]
+    RaceNotSettleable,
+    #[msg("race has not been settled yet")]
+    RaceNotSettled,
+    #[msg("this launch is the race winner, not a loser")]
+    NotALoser,
+    #[msg("launch has not crossed the OG floors (volume/holders/mcap)")]
+    OgFloorNotCrossed,
+    #[msg("launch already has an active, unresolved race")]
+    RaceStillRunning,
 }

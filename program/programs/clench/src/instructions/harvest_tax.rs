@@ -127,6 +127,9 @@ pub fn harvest_tax_handler<'info>(ctx: Context<'_, '_, '_, 'info, HarvestTax<'in
     transfer(creator_amount, &ctx.accounts.creator_token_account.to_account_info())?;
 
     ctx.accounts.launch.tax_this_epoch = ctx.accounts.launch.tax_this_epoch.saturating_add(holders_amount);
+    ctx.accounts.launch.tax_this_round = ctx.accounts.launch.tax_this_round.saturating_add(holders_amount);
+    ctx.accounts.launch.lifetime_tax_collected =
+        ctx.accounts.launch.lifetime_tax_collected.saturating_add(harvested);
 
     let _ = balance_before; // читаемость: явно показываем, что это дельта, а не абсолют
     Ok(())
