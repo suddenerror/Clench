@@ -14,6 +14,7 @@
     "@coral-xyz/anchor": "^0.30.1",
     "@solana/spl-token": "^0.4.8",
     "@solana/web3.js": "^1.95.2",
+    "@sqds/multisig": "^2.1.4",
     "js-sha3": "^0.9.3",
     "pg": "^8.12.0"
   },
