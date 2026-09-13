@@ -10,6 +10,7 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
+    "@solana/web3.js": "^1.95.2",
     "fastify": "^4.28.1",
     "pg": "^8.12.0"
   },

@@ -10,10 +10,14 @@
     "build": "tsc -p tsconfig.json",
     "migrate": "tsx -e \"import('./src/db/pool.js').then(m => m.migrate()).then(() => process.exit(0))\"",
     "calibrate": "tsx scripts/run-calibration.ts",
-    "calibrate:report": "tsx scripts/calibration-report.ts"
+    "calibrate:report": "tsx scripts/calibration-report.ts",
+    "realtime": "tsx src/realtime/index.ts"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.30.1",
+    "@solana/spl-token": "^0.4.8",
     "@solana/web3.js": "^1.95.2",
+    "js-sha3": "^0.9.3",
     "pg": "^8.12.0"
   },
   "devDependencies": {

@@ -6,7 +6,8 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "outDir": "dist"
   },
-  "include": ["src", "scripts"]
+  "include": ["src", "scripts", "idl"]
 }
