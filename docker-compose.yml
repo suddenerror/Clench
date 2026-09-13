@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: timescale/timescaledb:2.16.1-pg16
+    container_name: clench-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: clench
+      POSTGRES_PASSWORD: clench
+      POSTGRES_DB: clench
+    ports:
+      - "5432:5432"
+    volumes:
+      - clench_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clench -d clench"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  clench_postgres_data:

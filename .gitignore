@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.next/
+target/
+.env
+.DS_Store
+*.log
+*.tsbuildinfo
+
+# Anchor / Solana
+program/.anchor/
+program/test-ledger/
+program/target/
+*.so
+
+# Rust
+Cargo.lock
