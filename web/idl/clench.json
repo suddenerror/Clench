@@ -1,0 +1,1659 @@
+{
+  "address": "YS3nPRaMBL4unfow4iqs8rwrXnLLWx2MYucp9ba582m",
+  "metadata": {
+    "name": "clench",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "initializeConfig",
+      "discriminator": [
+        208,
+        127,
+        21,
+        1,
+        194,
+        190,
+        196,
+        70
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "InitializeConfigArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createLaunch",
+      "discriminator": [
+        239,
+        223,
+        255,
+        134,
+        39,
+        121,
+        127,
+        62
+      ],
+      "accounts": [
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "tickerLockCheck"
+        },
+        {
+          "name": "tokenProgram"
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "CreateLaunchArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "harvestTax",
+      "discriminator": [
+        65,
+        8,
+        228,
+        8,
+        123,
+        44,
+        26,
+        74
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "signer": true
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "writable": true
+        },
+        {
+          "name": "taxVault",
+          "writable": true
+        },
+        {
+          "name": "treasuryTokenAccount",
+          "writable": true
+        },
+        {
+          "name": "keeperTokenAccount",
+          "writable": true
+        },
+        {
+          "name": "creatorTokenAccount",
+          "writable": true
+        },
+        {
+          "name": "tokenProgram"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "closeEpoch",
+      "discriminator": [
+        13,
+        87,
+        7,
+        133,
+        109,
+        14,
+        83,
+        25
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "launch",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "publishRoot",
+      "discriminator": [
+        50,
+        189,
+        35,
+        212,
+        180,
+        100,
+        87,
+        25
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "distribution",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "root",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "total",
+          "type": "u64"
+        },
+        {
+          "name": "leafCount",
+          "type": "u32"
+        },
+        {
+          "name": "rewardMint",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "distribute",
+      "discriminator": [
+        191,
+        44,
+        223,
+        207,
+        164,
+        236,
+        126,
+        61
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "distribution",
+          "writable": true
+        },
+        {
+          "name": "pending",
+          "writable": true
+        },
+        {
+          "name": "ownerAccount",
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "rewardMintAccount",
+          "optional": true
+        },
+        {
+          "name": "ownerTokenAccount",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "tokenProgram",
+          "optional": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "leafIndex",
+          "type": "u32"
+        },
+        {
+          "name": "owner",
+          "type": "pubkey"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "streak",
+          "type": "u32"
+        },
+        {
+          "name": "proof",
+          "type": {
+            "vec": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "finalizeDistribution",
+      "discriminator": [
+        12,
+        246,
+        59,
+        197,
+        66,
+        128,
+        169,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "keeperFund",
+          "writable": true
+        },
+        {
+          "name": "launch"
+        },
+        {
+          "name": "distribution",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "openRace",
+      "discriminator": [
+        226,
+        139,
+        191,
+        247,
+        233,
+        199,
+        230,
+        3
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "launchA",
+          "writable": true
+        },
+        {
+          "name": "launchB",
+          "writable": true
+        },
+        {
+          "name": "race",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "matchHash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "joinRace",
+      "discriminator": [
+        207,
+        91,
+        222,
+        84,
+        249,
+        246,
+        229,
+        54
+      ],
+      "accounts": [
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "race",
+          "writable": true
+        },
+        {
+          "name": "tickerLockCheck"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "updateLeader",
+      "discriminator": [
+        173,
+        21,
+        190,
+        31,
+        208,
+        24,
+        154,
+        200
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "signer": true
+        },
+        {
+          "name": "launch"
+        },
+        {
+          "name": "race",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "compositeScore",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "closeRound",
+      "discriminator": [
+        149,
+        14,
+        81,
+        88,
+        230,
+        226,
+        234,
+        37
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "race",
+          "writable": true
+        },
+        {
+          "name": "roundResult",
+          "writable": true
+        },
+        {
+          "name": "roundsWon",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "settleRace",
+      "discriminator": [
+        172,
+        32,
+        72,
+        212,
+        155,
+        33,
+        161,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "race",
+          "writable": true
+        },
+        {
+          "name": "launchLeader",
+          "writable": true
+        },
+        {
+          "name": "launchRunnerUp",
+          "writable": true
+        },
+        {
+          "name": "tickerLock",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "floorsMet",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "claimOg",
+      "discriminator": [
+        122,
+        39,
+        198,
+        167,
+        126,
+        241,
+        1,
+        143
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "tickerLock",
+          "writable": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "floorsMet",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "sweepPending",
+      "discriminator": [
+        4,
+        68,
+        92,
+        154,
+        177,
+        126,
+        175,
+        214
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "launch",
+          "writable": true
+        },
+        {
+          "name": "pending",
+          "writable": true
+        },
+        {
+          "name": "ownerAccount",
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "rewardMintAccount",
+          "optional": true
+        },
+        {
+          "name": "ownerTokenAccount",
+          "writable": true,
+          "optional": true
+        },
+        {
+          "name": "tokenProgram",
+          "optional": true
+        },
+        {
+          "name": "systemProgram"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Config",
+      "discriminator": [
+        155,
+        12,
+        170,
+        224,
+        30,
+        250,
+        204,
+        130
+      ]
+    },
+    {
+      "name": "Launch",
+      "discriminator": [
+        144,
+        51,
+        51,
+        163,
+        206,
+        85,
+        213,
+        38
+      ]
+    },
+    {
+      "name": "Distribution",
+      "discriminator": [
+        176,
+        85,
+        17,
+        11,
+        13,
+        194,
+        18,
+        1
+      ]
+    },
+    {
+      "name": "Pending",
+      "discriminator": [
+        36,
+        180,
+        147,
+        170,
+        72,
+        175,
+        173,
+        126
+      ]
+    },
+    {
+      "name": "Race",
+      "discriminator": [
+        114,
+        93,
+        186,
+        119,
+        99,
+        123,
+        162,
+        192
+      ]
+    },
+    {
+      "name": "RoundResult",
+      "discriminator": [
+        216,
+        11,
+        21,
+        196,
+        213,
+        240,
+        117,
+        235
+      ]
+    },
+    {
+      "name": "RoundsWon",
+      "discriminator": [
+        215,
+        9,
+        243,
+        122,
+        218,
+        4,
+        144,
+        232
+      ]
+    },
+    {
+      "name": "TickerLock",
+      "discriminator": [
+        239,
+        106,
+        232,
+        87,
+        93,
+        121,
+        8,
+        225
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidTaxBps",
+      "msg": "tax_bps must be between 100 and 300 (1%-3%)"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidFeeSplit",
+      "msg": "fee split shares must sum to 10000 bps"
+    },
+    {
+      "code": 6002,
+      "name": "EpochNotFinished",
+      "msg": "epoch has not finished yet"
+    },
+    {
+      "code": 6003,
+      "name": "OverPromise",
+      "msg": "distribution would promise more than the pool holds (OverPromise)"
+    },
+    {
+      "code": 6004,
+      "name": "Underfunded",
+      "msg": "vault balance insufficient to cover undistributed + new total (Underfunded)"
+    },
+    {
+      "code": 6005,
+      "name": "OutOfOrder",
+      "msg": "leaf is out of order relative to distribution cursor"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidMerkleProof",
+      "msg": "merkle proof failed to verify against distribution root"
+    },
+    {
+      "code": 6007,
+      "name": "DistributionNotFinished",
+      "msg": "distribution is not finished yet"
+    },
+    {
+      "code": 6008,
+      "name": "DistributionMismatch",
+      "msg": "sent + deferred does not equal total"
+    },
+    {
+      "code": 6009,
+      "name": "WrongLaunchMode",
+      "msg": "launch mode does not support this instruction"
+    },
+    {
+      "code": 6010,
+      "name": "FeeAuthorityNotRevoked",
+      "msg": "transfer fee authority must be revoked in the same instruction"
+    },
+    {
+      "code": 6011,
+      "name": "NoMatch",
+      "msg": "ticker/name hash does not match between the two launches"
+    },
+    {
+      "code": 6012,
+      "name": "AlreadyOg",
+      "msg": "launch already has the OG plaque"
+    },
+    {
+      "code": 6013,
+      "name": "OgBarred",
+      "msg": "launch lost a tournament and can never claim OG for this pair"
+    },
+    {
+      "code": 6014,
+      "name": "AlreadyInRace",
+      "msg": "launch is already attached to a race"
+    },
+    {
+      "code": 6015,
+      "name": "VolumeFloorNotCrossed",
+      "msg": "launch has not crossed VOLUME_FLOOR yet"
+    },
+    {
+      "code": 6016,
+      "name": "NotInThisRace",
+      "msg": "launch is not attached to this race"
+    },
+    {
+      "code": 6017,
+      "name": "JoinWindowClosed",
+      "msg": "join window (first two rounds) has closed"
+    },
+    {
+      "code": 6018,
+      "name": "TickerLocked",
+      "msg": "ticker/name pair is already locked to an OG launch"
+    },
+    {
+      "code": 6019,
+      "name": "ScoreImplausible",
+      "msg": "composite score exceeds the plausible ceiling for this round"
+    },
+    {
+      "code": 6020,
+      "name": "RoundNotFinished",
+      "msg": "round has not finished yet"
+    },
+    {
+      "code": 6021,
+      "name": "RaceNotYetSettleable",
+      "msg": "race has already reached its round target \u2014 call settle_race"
+    },
+    {
+      "code": 6022,
+      "name": "RaceNotSettleable",
+      "msg": "race is not in a state that can be settled"
+    },
+    {
+      "code": 6023,
+      "name": "RaceNotSettled",
+      "msg": "race has not been settled yet"
+    },
+    {
+      "code": 6024,
+      "name": "NotALoser",
+      "msg": "this launch is the race winner, not a loser"
+    },
+    {
+      "code": 6025,
+      "name": "OgFloorNotCrossed",
+      "msg": "launch has not crossed the OG floors (volume/holders/mcap)"
+    },
+    {
+      "code": 6026,
+      "name": "RaceStillRunning",
+      "msg": "launch already has an active, unresolved race"
+    },
+    {
+      "code": 6027,
+      "name": "NothingToSweep",
+      "msg": "pending balance is empty, nothing to sweep"
+    },
+    {
+      "code": 6028,
+      "name": "BelowThreshold",
+      "msg": "pending balance is still below the payout threshold"
+    },
+    {
+      "code": 6029,
+      "name": "ChallengeWindowNotElapsed",
+      "msg": "challenge window has not elapsed since publish_root"
+    }
+  ],
+  "types": [
+    {
+      "name": "FeeSplit",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "holdersBps",
+            "type": "u16"
+          },
+          {
+            "name": "treasuryBps",
+            "type": "u16"
+          },
+          {
+            "name": "keeperBps",
+            "type": "u16"
+          },
+          {
+            "name": "creatorBps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LaunchMode",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Standard"
+          },
+          {
+            "name": "Reward"
+          },
+          {
+            "name": "Competitive"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeConfigArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "treasury",
+            "type": "pubkey"
+          },
+          {
+            "name": "epochDuration",
+            "type": "i64"
+          },
+          {
+            "name": "roundDuration",
+            "type": "i64"
+          },
+          {
+            "name": "roundsInRace",
+            "type": "u8"
+          },
+          {
+            "name": "maxExtraRounds",
+            "type": "u8"
+          },
+          {
+            "name": "bankBps",
+            "type": "u16"
+          },
+          {
+            "name": "roundJitter",
+            "type": "i64"
+          },
+          {
+            "name": "walletVolumeCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "churnWeightBps",
+            "type": "u16"
+          },
+          {
+            "name": "wVolumeBps",
+            "type": "u16"
+          },
+          {
+            "name": "wHoldersBps",
+            "type": "u16"
+          },
+          {
+            "name": "wMcapBps",
+            "type": "u16"
+          },
+          {
+            "name": "volumeFloor",
+            "type": "u64"
+          },
+          {
+            "name": "ogVolumeFloor",
+            "type": "u64"
+          },
+          {
+            "name": "ogHoldersFloor",
+            "type": "u32"
+          },
+          {
+            "name": "ogMcapFloor",
+            "type": "u64"
+          },
+          {
+            "name": "multiplierStepBps",
+            "type": "u16"
+          },
+          {
+            "name": "multiplierCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "ogMultiplierStepBps",
+            "type": "u16"
+          },
+          {
+            "name": "ogMultiplierCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "prorataBps",
+            "type": "u16"
+          },
+          {
+            "name": "dustToleranceBps",
+            "type": "u16"
+          },
+          {
+            "name": "minPayout",
+            "type": "u64"
+          },
+          {
+            "name": "challengeWindow",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CreateLaunchArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "ticker",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "taxBps",
+            "type": "u16"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "mode",
+            "type": {
+              "defined": {
+                "name": "LaunchMode"
+              }
+            }
+          },
+          {
+            "name": "competitive",
+            "type": "bool"
+          },
+          {
+            "name": "rewardAssets",
+            "type": {
+              "array": [
+                "pubkey",
+                5
+              ]
+            }
+          },
+          {
+            "name": "rewardWeights",
+            "type": {
+              "array": [
+                "u16",
+                5
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Config",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "treasury",
+            "type": "pubkey"
+          },
+          {
+            "name": "feeSplit",
+            "type": {
+              "defined": {
+                "name": "FeeSplit"
+              }
+            }
+          },
+          {
+            "name": "epochDuration",
+            "type": "i64"
+          },
+          {
+            "name": "roundDuration",
+            "type": "i64"
+          },
+          {
+            "name": "roundsInRace",
+            "type": "u8"
+          },
+          {
+            "name": "maxExtraRounds",
+            "type": "u8"
+          },
+          {
+            "name": "bankBps",
+            "type": "u16"
+          },
+          {
+            "name": "roundJitter",
+            "type": "i64"
+          },
+          {
+            "name": "walletVolumeCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "churnWeightBps",
+            "type": "u16"
+          },
+          {
+            "name": "wVolumeBps",
+            "type": "u16"
+          },
+          {
+            "name": "wHoldersBps",
+            "type": "u16"
+          },
+          {
+            "name": "wMcapBps",
+            "type": "u16"
+          },
+          {
+            "name": "volumeFloor",
+            "type": "u64"
+          },
+          {
+            "name": "ogVolumeFloor",
+            "type": "u64"
+          },
+          {
+            "name": "ogHoldersFloor",
+            "type": "u32"
+          },
+          {
+            "name": "ogMcapFloor",
+            "type": "u64"
+          },
+          {
+            "name": "multiplierStepBps",
+            "type": "u16"
+          },
+          {
+            "name": "multiplierCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "ogMultiplierStepBps",
+            "type": "u16"
+          },
+          {
+            "name": "ogMultiplierCapBps",
+            "type": "u16"
+          },
+          {
+            "name": "prorataBps",
+            "type": "u16"
+          },
+          {
+            "name": "dustToleranceBps",
+            "type": "u16"
+          },
+          {
+            "name": "minPayout",
+            "type": "u64"
+          },
+          {
+            "name": "challengeWindow",
+            "type": "i64"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Launch",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "name",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "ticker",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "mode",
+            "type": {
+              "defined": {
+                "name": "LaunchMode"
+              }
+            }
+          },
+          {
+            "name": "taxBps",
+            "type": "u16"
+          },
+          {
+            "name": "rewardAssets",
+            "type": {
+              "array": [
+                "pubkey",
+                5
+              ]
+            }
+          },
+          {
+            "name": "rewardWeights",
+            "type": {
+              "array": [
+                "u16",
+                5
+              ]
+            }
+          },
+          {
+            "name": "feeSplit",
+            "type": {
+              "defined": {
+                "name": "FeeSplit"
+              }
+            }
+          },
+          {
+            "name": "excluded",
+            "type": {
+              "array": [
+                "pubkey",
+                8
+              ]
+            }
+          },
+          {
+            "name": "race",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "competitive",
+            "type": "bool"
+          },
+          {
+            "name": "isOg",
+            "type": "bool"
+          },
+          {
+            "name": "ogBarred",
+            "type": "bool"
+          },
+          {
+            "name": "bornAt",
+            "type": "i64"
+          },
+          {
+            "name": "epochStartedAt",
+            "type": "i64"
+          },
+          {
+            "name": "taxThisRound",
+            "type": "u64"
+          },
+          {
+            "name": "taxThisEpoch",
+            "type": "u64"
+          },
+          {
+            "name": "epochPotSnapshot",
+            "type": "u64"
+          },
+          {
+            "name": "epochIndex",
+            "type": "u32"
+          },
+          {
+            "name": "totalOwed",
+            "type": "u64"
+          },
+          {
+            "name": "lifetimeTaxCollected",
+            "type": "u64"
+          },
+          {
+            "name": "taxVaultBump",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Distribution",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "source",
+            "type": "pubkey"
+          },
+          {
+            "name": "root",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "total",
+            "type": "u64"
+          },
+          {
+            "name": "sent",
+            "type": "u64"
+          },
+          {
+            "name": "deferred",
+            "type": "u64"
+          },
+          {
+            "name": "cursor",
+            "type": "u32"
+          },
+          {
+            "name": "leafCount",
+            "type": "u32"
+          },
+          {
+            "name": "finished",
+            "type": "bool"
+          },
+          {
+            "name": "rewardMint",
+            "type": "pubkey"
+          },
+          {
+            "name": "publishedAt",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pending",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "rewardMint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MatchKind",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Ticker"
+          },
+          {
+            "name": "Name"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RaceStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Running"
+          },
+          {
+            "name": "Extended"
+          },
+          {
+            "name": "Settled"
+          },
+          {
+            "name": "Void"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TickerLock",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "keyHash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "ogLaunch",
+            "type": "pubkey"
+          },
+          {
+            "name": "wonAt",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Race",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "matchHash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "matchKind",
+            "type": {
+              "defined": {
+                "name": "MatchKind"
+              }
+            }
+          },
+          {
+            "name": "claimantCount",
+            "type": "u32"
+          },
+          {
+            "name": "startedAt",
+            "type": "i64"
+          },
+          {
+            "name": "currentRound",
+            "type": "u8"
+          },
+          {
+            "name": "roundStartedAt",
+            "type": "i64"
+          },
+          {
+            "name": "roundEndsAt",
+            "type": "i64"
+          },
+          {
+            "name": "leader",
+            "type": "pubkey"
+          },
+          {
+            "name": "leaderScore",
+            "type": "u64"
+          },
+          {
+            "name": "overallLeader",
+            "type": "pubkey"
+          },
+          {
+            "name": "overallRoundsWon",
+            "type": "u8"
+          },
+          {
+            "name": "runnerUp",
+            "type": "pubkey"
+          },
+          {
+            "name": "runnerUpRoundsWon",
+            "type": "u8"
+          },
+          {
+            "name": "extraRoundsUsed",
+            "type": "u8"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "RaceStatus"
+              }
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundResult",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "race",
+            "type": "pubkey"
+          },
+          {
+            "name": "round",
+            "type": "u8"
+          },
+          {
+            "name": "winner",
+            "type": "pubkey"
+          },
+          {
+            "name": "winnerScore",
+            "type": "u64"
+          },
+          {
+            "name": "bankEntries",
+            "type": "u8"
+          },
+          {
+            "name": "closedAt",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundsWon",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "race",
+            "type": "pubkey"
+          },
+          {
+            "name": "launch",
+            "type": "pubkey"
+          },
+          {
+            "name": "wins",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* §9: числа табличные — счета/таймеры не должны дёргать вёрстку при смене. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+body {
+  background-color: #16181c;
+  color: #e8e6e1;
+}
+
+/* §9 «Движение»: единственное место анимации — полоса счёта, 400ms ease-out. */
+.score-bar-fill {
+  transition: width 400ms ease-out;
+}

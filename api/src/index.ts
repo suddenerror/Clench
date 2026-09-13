@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import cors from "@fastify/cors";
 import { PublicKey } from "@solana/web3.js";
 import { getPool } from "./db.js";
 import { cached } from "./cache.js";
@@ -6,11 +7,36 @@ import { cached } from "./cache.js";
 const app = Fastify({ logger: true });
 const CACHE_TTL_MS = Number(process.env.API_CACHE_TTL_MS ?? 15_000);
 
+await app.register(cors, { origin: true });
+
 app.get("/health", async () => ({ ok: true }));
 
 function mintToBytes(mint: string): Buffer {
   return Buffer.from(new PublicKey(mint).toBytes());
 }
+
+/// Лента для `/` (§8): по одной строке на минт с последней известной эпохой.
+/// Сортировка по умолчанию — "Heat" не считается здесь (нужны данные о
+/// турнирах/таймере раунда, которых пока не строит этот роут — см. Фазу 7.2);
+/// пока сортируем по total_balance последней эпохи как proxy активности.
+app.get("/coins", async () => {
+  return cached("coins:list", CACHE_TTL_MS, async () => {
+    const { rows } = await getPool().query(
+      `SELECT DISTINCT ON (mint) mint, epoch_index, COUNT(*) OVER (PARTITION BY mint, epoch_index) AS holders,
+              SUM(balance_min) OVER (PARTITION BY mint, epoch_index) AS total_balance
+       FROM epoch_holders
+       ORDER BY mint, epoch_index DESC`
+    );
+    return {
+      coins: rows.map((r) => ({
+        mint: new PublicKey(r.mint as Buffer).toBase58(),
+        epoch: r.epoch_index,
+        holders: Number(r.holders),
+        totalBalance: r.total_balance,
+      })),
+    };
+  });
+});
 
 /// Держатели последней (или указанной) эпохи монеты — витрина страницы
 /// монеты (§8): личный блок холдера читает отсюда свою запись.
