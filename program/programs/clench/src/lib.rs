@@ -79,6 +79,10 @@ pub mod clench {
     pub fn claim_og(ctx: Context<ClaimOg>, floors_met: bool) -> Result<()> {
         claim_og_handler(ctx, floors_met)
     }
+
+    pub fn sweep_pending(ctx: Context<SweepPending>) -> Result<()> {
+        sweep_pending_handler(ctx)
+    }
 }
 
 // re-export for tests/clients that only import the crate root

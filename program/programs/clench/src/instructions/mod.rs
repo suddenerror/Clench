@@ -10,6 +10,7 @@ pub mod join_race;
 pub mod open_race;
 pub mod publish_root;
 pub mod settle_race;
+pub mod sweep_pending;
 pub mod update_leader;
 
 pub use claim_og::*;
@@ -24,4 +25,5 @@ pub use join_race::*;
 pub use open_race::*;
 pub use publish_root::*;
 pub use settle_race::*;
+pub use sweep_pending::*;
 pub use update_leader::*;

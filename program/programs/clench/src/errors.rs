@@ -58,4 +58,10 @@ pub enum ClenchError {
     OgFloorNotCrossed,
     #[msg("launch already has an active, unresolved race")]
     RaceStillRunning,
+
+    // Фаза 4 — кипер.
+    #[msg("pending balance is empty, nothing to sweep")]
+    NothingToSweep,
+    #[msg("pending balance is still below the payout threshold")]
+    BelowThreshold,
 }
