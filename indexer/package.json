@@ -7,9 +7,13 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts",
     "dev": "tsx watch src/index.ts",
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "migrate": "tsx -e \"import('./src/db/pool.js').then(m => m.migrate()).then(() => process.exit(0))\"",
+    "calibrate": "tsx scripts/run-calibration.ts",
+    "calibrate:report": "tsx scripts/calibration-report.ts"
   },
   "dependencies": {
+    "@solana/web3.js": "^1.95.2",
     "pg": "^8.12.0"
   },
   "devDependencies": {
