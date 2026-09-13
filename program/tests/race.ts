@@ -52,7 +52,7 @@ describe("clench — Фаза 3 турнир и OG", () => {
         prorataBps: 8000,
         dustToleranceBps: 50,
         minPayout: new anchor.BN(1000),
-        challengeWindow: new anchor.BN(3600),
+        challengeWindow: new anchor.BN(2),
       })
       .accounts({ authority: payer.publicKey, config: configPda, systemProgram: SystemProgram.programId })
       .rpc();

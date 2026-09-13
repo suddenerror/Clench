@@ -64,4 +64,8 @@ pub enum ClenchError {
     NothingToSweep,
     #[msg("pending balance is still below the payout threshold")]
     BelowThreshold,
+
+    // Фаза 6 — аудит.
+    #[msg("challenge window has not elapsed since publish_root")]
+    ChallengeWindowNotElapsed,
 }

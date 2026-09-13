@@ -244,6 +244,9 @@
           "signer": true
         },
         {
+          "name": "config"
+        },
+        {
           "name": "launch",
           "writable": true
         },
@@ -879,6 +882,11 @@
       "code": 6028,
       "name": "BelowThreshold",
       "msg": "pending balance is still below the payout threshold"
+    },
+    {
+      "code": 6029,
+      "name": "ChallengeWindowNotElapsed",
+      "msg": "challenge window has not elapsed since publish_root"
     }
   ],
   "types": [
@@ -1403,6 +1411,10 @@
           {
             "name": "rewardMint",
             "type": "pubkey"
+          },
+          {
+            "name": "publishedAt",
+            "type": "i64"
           },
           {
             "name": "bump",

@@ -68,6 +68,7 @@ pub fn publish_root_handler(
     dist.leaf_count = leaf_count;
     dist.finished = false;
     dist.reward_mint = reward_mint;
+    dist.published_at = Clock::get()?.unix_timestamp;
     dist.bump = ctx.bumps.distribution;
 
     Ok(())

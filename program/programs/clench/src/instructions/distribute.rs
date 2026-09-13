@@ -9,6 +9,7 @@ use spl_token_2022::instruction as token_ix;
 use crate::errors::ClenchError;
 use crate::merkle;
 use crate::payout::payout_threshold;
+use crate::state::config::Config;
 use crate::state::distribution::Distribution;
 use crate::state::launch::Launch;
 use crate::state::pending::Pending;
@@ -23,6 +24,9 @@ pub struct Distribute<'info> {
     /// Permissionless, но платит за возможный init_if_needed Pending.
     #[account(mut)]
     pub caller: Signer<'info>,
+
+    #[account(seeds = [Config::SEED], bump = config.bump)]
+    pub config: Box<Account<'info, Config>>,
 
     #[account(mut, seeds = [Launch::SEED, launch.mint.as_ref()], bump = launch.bump)]
     pub launch: Account<'info, Launch>,
@@ -68,6 +72,16 @@ pub fn distribute_handler(
     proof: Vec<[u8; 32]>,
 ) -> Result<()> {
     let dist = &mut ctx.accounts.distribution;
+
+    // Найдено аудитом Фазы 6: challenge_window (§4/§6 — «час на то, чтобы
+    // кто-то пересчитал листья и поймал расхождение») существовал в Config,
+    // но никогда не проверялся здесь. Без этой проверки заявленная в спеке
+    // митигация для «Индексер считает неправильно» была фиктивной.
+    let now = Clock::get()?.unix_timestamp;
+    require!(
+        now >= dist.published_at + ctx.accounts.config.challenge_window,
+        ClenchError::ChallengeWindowNotElapsed
+    );
 
     require!(leaf_index == dist.cursor, ClenchError::OutOfOrder);
 

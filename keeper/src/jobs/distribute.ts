@@ -107,6 +107,7 @@ export async function runDistribute(ctx: { program: any; keeperPubkey: PublicKey
                 )
                 .accounts({
                   caller: ctx.keeperPubkey,
+                  config: findConfigPda(ctx.program.programId),
                   launch: launchPda,
                   distribution: distPda,
                   pending: pendingPda,

@@ -77,7 +77,7 @@ describe("clench — Фаза 2 базовый цикл", () => {
         prorataBps: 8000,
         dustToleranceBps: 50,
         minPayout: new anchor.BN(1000),
-        challengeWindow: new anchor.BN(3600),
+        challengeWindow: new anchor.BN(2),
       })
       .accounts({ authority: payer.publicKey, config: configPda, systemProgram: SystemProgram.programId })
       .rpc();
@@ -254,6 +254,9 @@ describe("clench — Фаза 2 базовый цикл", () => {
       })
       .rpc();
 
+    // challenge window (2с в тестовом конфиге) должна истечь до distribute.
+    await new Promise((r) => setTimeout(r, 3000));
+
     // distribute — по порядку, leaf 1 раньше leaf 0 должен быть отклонён.
     const [pendingB] = findPendingPda(program.programId, holderB.publicKey, mint.publicKey);
     let outOfOrderRejected = false;
@@ -262,6 +265,7 @@ describe("clench — Фаза 2 базовый цикл", () => {
         .distribute(1, holderB.publicKey, new anchor.BN(leaves[1].amount.toString()), 1, proofs[1].map((p) => Array.from(p)))
         .accounts({
           caller: payer.publicKey,
+          config: configPda,
           launch: launchPda,
           distribution: distPda,
           pending: pendingB,
@@ -283,6 +287,7 @@ describe("clench — Фаза 2 базовый цикл", () => {
       .distribute(0, holderA.publicKey, new anchor.BN(leaves[0].amount.toString()), 1, proofs[0].map((p) => Array.from(p)))
       .accounts({
         caller: payer.publicKey,
+        config: configPda,
         launch: launchPda,
         distribution: distPda,
         pending: pendingA,
@@ -299,6 +304,7 @@ describe("clench — Фаза 2 базовый цикл", () => {
       .distribute(1, holderB.publicKey, new anchor.BN(leaves[1].amount.toString()), 1, proofs[1].map((p) => Array.from(p)))
       .accounts({
         caller: payer.publicKey,
+        config: configPda,
         launch: launchPda,
         distribution: distPda,
         pending: pendingB,
